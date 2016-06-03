@@ -1,0 +1,21 @@
+{
+  "name": "OnlineBookshop",
+  "version": "0.0.0",
+  "authors": [
+    "yyypasserby <nixingwuwei@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "pure": "~0.5.0",
+    "font-awesome": "~4.2.0",
+    "jquery": "~2.1.3"
+  }
+}

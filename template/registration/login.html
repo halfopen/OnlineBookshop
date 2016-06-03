@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}登录 - 网上书店{% endblock %}
+{% block content %} 
+
+<div class="header">
+    <h1>登录 | 注册</h1>
+</div>
+<div id="main" class="content pure-g">
+    <div id="main" class="pure-u-1-2">
+        <legend>请输入用户名和密码</legend>
+        <div class="">
+            <form action="" method="post" class="pure-form pure-form-stacked">
+                <fieldset>
+                    {% csrf_token %}
+                    <div class="pure-control-group">
+                        <label for="username">用户名:</label>
+                        <input type="text" name="username" value="" id="username">
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="password">密码:</label>
+                        <input type="password" name="password" value="" id="password">
+                    </div>
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-sign-in fa-lg"></i> 登录</button>
+                    </div>
+                    <input type="hidden" name="next" value="{{ next|escape }}" />
+                </fieldset>
+
+                {% if form.errors %}
+                <div class="alert alert-danger">抱歉，用户名或者密码不合法</div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    <div class="pure-u-1-2">
+        <legend>你注册了吗?</legend>
+        <form class="pure-form" action="/accounts/register">
+            <button class="pure-button button-secondary button-register"><i class="fa fa-user fa-lg"></i> 注册</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

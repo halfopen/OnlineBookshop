@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}{% endblock %}</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}">
+<link rel="stylesheet" href="{% static "bower_components/pure/pure-min.css" %}">
+<link rel="stylesheet" href="{% static "bower_components/font-awesome/css/font-awesome.min.css" %}">
+<link rel="stylesheet" href="{% static "layout/side-menu.css" %}">
+<link rel="stylesheet" href="{% static "layout/docs.min.css" %}">
+<link rel="stylesheet" href="{% static "style/style.css" %}">
+<script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script> 
+</head>
+<body>
+<div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="/#"><i class="fa fa-book fa-md"></i> 书店</a>
+            <ul>
+                {% load base_extra %}
+                <li class="{% activetabs request 'search' %}"><a href="/search/">书库</a></li>
+
+                <!--<li class="{% activetabs request 'admin' %}"><a href="/admin/">Contact</a></li>-->
+                <li class="{% activetabs request 'accounts' %}"><a href="/accounts/">用户中心</a></li>
+                <li class="{% activetabs request 'generate_order' %}"><a href="/generate_order/">购物车
+                    <span class="m-badge">{{ request.user.shop_cart.all | length }}</span>
+                </a></li>
+                <li class="{% activetabs request 'help' %}"><a href="/help/">关于</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+<script src="{% static "layout/ui.js" %}"></script>
+</html>

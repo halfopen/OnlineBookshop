@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}登录 - 网上书店{% endblock %}
+{% block content %} 
+
+<div class="header">
+    <h1>注册 | 登录</h1>
+</div>
+<div id="main" class="content pure-g">
+    <div id="main" class="pure-u-1-2">
+        <legend>请输入您的个人信息</legend>
+        <div class="">
+            <form action="" method="post" class="pure-form pure-form-stacked">
+                <fieldset>
+                    {% csrf_token %}
+                    <div class="pure-control-group">
+                        <label for="username">用户名:</label>
+                        <input type="text" name="username" value="" id="username">
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="password">密码:</label>
+                        <input type="password" name="password" value="" id="password">
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="email">邮箱:</label>
+                        <input type="email" name="email" value="" id="email">
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="address">地址:</label>
+                        <input type="text" name="address" value="" id="address">
+                    </div>
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button button-register button-secondary"><i class="fa fa-user fa-lg"></i> 注册</button>
+                    </div>
+                    <input type="hidden" name="next" value="{{ next|escape }}" />
+                </fieldset>
+
+                {% if form.errors %}
+                <div class="alert alert-danger">抱歉，用户名或者密码不合法</div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    <div class="pure-u-1-2">
+        <legend>已经注册过了?</legend>
+        <form class="pure-form" action="/accounts/login">
+            <button class="pure-button pure-button-primary"><i class="fa fa-sign-in fa-lg"></i> 登录</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

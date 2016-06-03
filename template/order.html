@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %} 
+<div class="header">
+    <h1>确认订单</h1>
+</div>
+<div id="main" class="content">
+    <form class="pure-form" action="/pay/" method="POST">
+        {% csrf_token %}
+        <div id="confirm-table" class="">
+            {% if request.user.shop_cart.all|length_is:"0" %}
+            <div class="empty_message">
+                购物车为空，去书库看看吧！
+            </div>
+            {% else %}
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>书名</th>
+                            <th>数量</th>
+                            <th>价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in request.user.shop_cart.all %}
+                    <tr>
+                        <td><input id="item" type="checkbox" checked="true" name="check{{ forloop.counter0 }}" value="{{ book.price }}"></td>
+                        <td>{{ book.name }}</td>
+                        <td id="item-number">
+                            <span id="item-number" class="item-number">1</span>
+                            <input id="book-number{{ forloop.counter0 }}" type="hidden" name="number{{ forloop.counter0 }}" value="1">
+                            <input type="hidden" name="book{{ forloop.counter0 }}" value="{{ book.isbn }}">
+                            <span id="controls-number" class="controls-number">
+                            <button id="controls-number-button-minus" class="pure-button">-</button>
+                            <button id="controls-number-button-add" class="pure-button">+</button>
+                            </span>
+                        <td>{{ book.price }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <input type="hidden" name="book_total_number" value="{{ request.user.shop_cart.all | length }}">
+            </div>
+            {% endif %}
+        </div>
+        <div class="order-controls">
+            {% if not request.user.shop_cart.all|length_is:"0" %}
+            <div class="total-price-show">
+                价格:
+                <span class="total-price"></span>
+            </div>
+
+            <button class="pure-button button-buy button-secondary" type="submit">立即付款</button>
+            {% endif %}
+        </div>
+    </form>
+    {% load staticfiles %}
+    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static "js/control/control_order.js" %}"></script>
+</div>
+{% endblock %}
